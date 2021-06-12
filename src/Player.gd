@@ -18,10 +18,10 @@ func _physics_process(delta: float) -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("crystal_mode"):
-		_start_connecting_crystals()
+		_start_trail()
 	
 
-func _start_connecting_crystals() -> void:
+func _start_trail() -> void:
 	if trail_mode:
 		for trail in child_trails:
 			trail.destroy()
@@ -38,5 +38,12 @@ func _start_connecting_crystals() -> void:
 			following_crystal = crystals[0]
 			trail_mode = true
 		_:
-			pass
-	
+			var min_dist: float = float("1e100")	# Start trail on the closest crystal
+			var min_crystal: Crystal
+			for cr in crystals:
+				var current_dist: float = (cr.position - position).length()
+				if current_dist < min_dist:
+					min_dist = current_dist
+					min_crystal = cr
+			following_crystal = min_crystal
+			trail_mode = true
