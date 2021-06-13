@@ -297,7 +297,7 @@ scale = Vector2( 4, 4 )
 texture = ExtResource( 7 )
 
 [node name="MessageRegion" parent="secret" instance=ExtResource( 8 )]
-scale = Vector2( 1.7, 0.55 )
+scale = Vector2( 1.8, 0.55 )
 message = "Congratulations on finding the next game in the cycle"
 
 [node name="ExitRegion" parent="." groups=[

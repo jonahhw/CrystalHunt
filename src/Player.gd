@@ -15,7 +15,7 @@ func _physics_process(delta: float) -> void:
 	if (OS.is_window_focused()):
 		direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 		direction.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	if (direction.length() > 0):
+	if (direction.length() > 1):
 		direction = direction.normalized()
 	
 	move_and_slide(direction*speed)
