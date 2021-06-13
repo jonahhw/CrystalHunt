@@ -18,15 +18,28 @@ _global_script_classes=[ {
 "class": "LevelBase",
 "language": "GDScript",
 "path": "res://src/LevelBase.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://src/Player.gd"
+}, {
+"base": "AnimatedSprite",
+"class": "Trail",
+"language": "GDScript",
+"path": "res://src/Trail.gd"
 } ]
 _global_script_class_icons={
 "Crystal": "",
-"LevelBase": ""
+"LevelBase": "",
+"Player": "",
+"Trail": ""
 }
 
 [application]
 
 config/name="Crystal Hunt"
+boot_splash/image="res://assets/Splash.png"
 config/icon="res://icon.png"
 
 [display]

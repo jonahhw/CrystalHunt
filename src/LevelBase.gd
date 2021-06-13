@@ -41,3 +41,6 @@ func bind_crystals(c1: Node2D, c2: Node2D) -> void:
 		return
 	c1.set_partner(c2)
 	c2.set_partner(c1)
+	
+func reset() -> void:
+	pass
