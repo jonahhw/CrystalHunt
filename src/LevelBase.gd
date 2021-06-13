@@ -8,15 +8,17 @@ func _ready() -> void:
 	yield(get_tree().create_timer(0.01), "timeout")
 	pair_crystals()
 	
-
 func add_crystal(crystal: Node2D) -> void:
 	if crystal.get_class() == "Crystal":
 		crystals.append(crystal)
+		crystal.connect("satisfied", self, "_on_Crystal_satisfied")
 	else:
 		print_debug("Something attempted to add a non-Crystal element to the crystals array")
 
 func _on_Crystal_satisfied(crystal: Node2D) -> void:
-	pass
+	crystals.erase(crystal)
+	if crystals.size() == 0:
+		get_tree().call_group("exit_regions", "set_is_active", true)
 
 func pair_crystals() -> void:
 	var temp_crystals = crystals.duplicate()

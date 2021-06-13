@@ -12,3 +12,6 @@ func _on_ExitRegion_body_entered(body: Node) -> void:
 			get_tree().change_scene(scene_to_load)
 		else:
 			emit_signal("not_ready", not_ready_message)
+
+func set_is_active(input: bool) -> void:
+	is_active = input
