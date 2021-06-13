@@ -56,9 +56,9 @@ shape = SubResource( 4 )
 
 [node name="Message" type="Label" parent="."]
 margin_left = -86.0
-margin_top = 51.227
+margin_top = 17.0
 margin_right = 86.0
-margin_bottom = 79.227
+margin_bottom = 118.0
 custom_fonts/font = SubResource( 5 )
 align = 1
 valign = 1

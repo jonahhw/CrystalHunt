@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Player
 
-export var speed: float = 96
+export var speed: float = 128
 
 onready var level: LevelBase = get_parent()
 
@@ -119,3 +119,4 @@ func display_message(message: String) -> void:
 	yield($Message/Timer, "timeout")
 	$Message.text = ""
 	$Message.visible = false
+

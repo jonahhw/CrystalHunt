@@ -9,6 +9,9 @@ export var not_ready_message: String = "Connect all of the crystals first"
 func _on_ExitRegion_body_entered(body: Node) -> void:
 	if body.get_class() == "Player":
 		if is_active:
+			$SoundEffect.play()
+			$ExitTimer.start()
+			yield($ExitTimer, "timeout")
 			get_tree().change_scene(scene_to_load)
 		else:
 			emit_signal("not_ready", not_ready_message)
