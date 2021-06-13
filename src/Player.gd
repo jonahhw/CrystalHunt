@@ -7,7 +7,7 @@ onready var level: LevelBase = get_parent()
 
 var trail_mode: bool = false
 var following_crystal = null
-var child_trails := []
+var path_trails := []
 onready var trail_scene: PackedScene = preload("res://src/Trail.tscn")
 
 func _physics_process(delta: float) -> void:
@@ -70,28 +70,51 @@ func add_new_trail():
 	new_trail.colour = following_crystal.colour
 	new_trail.connect("player_exited", self, "_on_Trail_player_exited")
 	new_trail.connect("ran_into_trail", self, "_on_Trail_ran_into_trail")
-	new_trail.VibeCheck()
-	child_trails.push_back(new_trail)
+	new_trail.connect("trail_hit_crystal", self, "_on_Trail_hit_crystal")
+	path_trails.push_back(new_trail)
 
 func cancel_trail() -> void:
 #	print_debug("removing array")
-	for trail in child_trails:
+	for trail in path_trails:
 		trail.destroy()
-	child_trails = []
+	path_trails = []
 	trail_mode = false
 
 func _on_Trail_player_exited(trail: Trail):
-	add_new_trail()
+	if path_trails.has(trail):
+		add_new_trail()
 
 func _on_Trail_ran_into_trail(announcing_trail: Trail, existing_trail: Trail):
 	# remove all trails after existing_trail
-	for i in child_trails.size():
-		if child_trails[i] == existing_trail:
-			for j in range(i+1, child_trails.size()):
-				child_trails[i].delete()
-				child_trails.remove(i)
+	for i in path_trails.size():
+		if path_trails[i] == existing_trail:
+			for j in range(i+1, path_trails.size()):
+				path_trails[i].delete()
+				path_trails.remove(i)
 			return
 	cancel_trail()		# If existing_trail is not in the current path
 
+func _on_Trail_hit_crystal(trail: Trail, crystal: Crystal) -> void:
+	if (crystal._partner == following_crystal):
+		handle_trail_connect()
+	elif (crystal == following_crystal):
+		# delete all trails except for the first
+		for i in range(1, path_trails.size()):
+			path_trails[i].delete()
+			path_trails.remove(i)
+	else:
+		cancel_trail()
+
+func handle_trail_connect() -> void:
+	pass
+
 func get_class() -> String:
 	return "Player"
+	
+func display_message(message: String) -> void:
+	$Message.visible = true
+	$Message.text = message
+	$Message/Timer.start()
+	yield($Message/Timer, "timeout")
+	$Message.text = ""
+	$Message.visible = false

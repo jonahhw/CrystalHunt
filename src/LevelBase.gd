@@ -4,7 +4,6 @@ class_name LevelBase
 var crystals := []
 
 func _ready() -> void:
-	OS.set_window_size(Vector2(384, 384))	# Probably bad form, but idk how else to do it other than resizing all of the textures
 	get_tree().call_group("crystals", "connect_to_level", self)
 	yield(get_tree().create_timer(0.01), "timeout")
 	pair_crystals()

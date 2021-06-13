@@ -13,3 +13,6 @@ lib/
 *.x86_64
 *.pck
 *.exe
+
+# Licensed music (to be replaced if this game is developed further)
+assets/music
